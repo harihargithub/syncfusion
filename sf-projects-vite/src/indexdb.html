@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IndexedDB Example</title>
+</head>
+
+<body>
+    <script>
+        // Open (or create) the database
+        const request = indexedDB.open('myDatabase', 1);
+
+        // Setup the database schema
+        // const objectStore = db.createObjectStore('myStore', { keyPath: 'data' }); -> for data to accept only unique values
+
+        request.onupgradeneeded = (event) => {
+            const db = event.target.result;
+            const objectStore = db.createObjectStore('myStore', { keyPath: 'id', autoIncrement: true });
+            objectStore.createIndex('dataIndex', 'data', { unique: true });
+        };
+
+        // Handle successful database opening
+        request.onsuccess = (event) => {
+            const db = event.target.result;
+
+            // Add data to the database
+            const transaction = db.transaction(['myStore'], 'readwrite');
+            const objectStore = transaction.objectStore('myStore');
+
+            const data = { data: 'Hello, IndexedDB!' };
+            objectStore.add(data);
+
+            const data2 = { data: 'hks' };
+            objectStore.add(data2);
+
+            // Close the database connection when done
+            transaction.oncomplete = () => {
+                console.log('Data added to IndexedDB');
+
+                // Retrieve data from the database
+                const transaction2 = db.transaction(['myStore'], 'readonly');
+                const objectStore2 = transaction2.objectStore('myStore');
+
+                const cursorRequest = objectStore2.openCursor();
+
+                cursorRequest.onsuccess = (event) => {
+                    const cursor = event.target.result;
+                    if (cursor) {
+                        console.log('Retrieved data:', cursor.value);
+                        cursor.continue();
+                    }
+                };
+            };
+        };
+
+        // Handle errors
+        request.onerror = (event) => {
+            console.error('Error opening database:', event.target.error);
+        };
+    </script>
+</body>
+
+</html>

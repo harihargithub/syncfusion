@@ -1,0 +1,172 @@
+syncfusion vite projects
+PS C:\Users\nhari\OneDrive\Documents\iitr gl apcifsd\syncfusion> npm create vite sf-projects-vite
+Need to install the following packages:
+create-vite@5.1.0
+Ok to proceed? (y) y
+√ Select a framework: » React
+√ Select a variant: » TypeScript
+
+  https://www.syncfusion.com/tutorial-videos/react/grid?title=getting-started-with-react-data-grid-by-syncfusion
+       https://www.youtube.com/watch?v=QNwcXokKc70
+       https://github.com/SyncfusionExamples
+       https://github.com/SyncfusionExamples/getting-started-with-react-data-grid-by-syncfusion
+
+PS C:\Users\nhari\OneDrive\Documents\iitr gl apcifsd\syncfusion\sf-projects-vite> npm i
+        -> npm run dev
+
+//App.tsx
+import React from 'react';
+import './App.css';
+
+const App: React.FC = () => {
+  return <div className="App"></div>;
+};
+
+export default App;
+
+-> empty App.css
+
+-> npm install @syncfusion/ej2-react-grids --save
+
+-> App.css -> @import url('https://cdn.syncfusion.com/ej2/material.css');
+
+C:\Users\nhari\OneDrive\Documents\iitr gl apcifsd\syncfusion\sf-projects-vite\src\dataSource.json 
+    -> data appended
+
+  syncfusion.com/account/claim-license-key  v230124
+    ORg4AjUWIQA/Gnt2UVhhQlVFfV5dX2BWfFN0QXNedVxxflFAcC0sT3RfQF5iS3xXdk1mXX9acXRcRg==
+
+    Essential Studio Installer -> Syncfusion Essential Studio for js done.
+    
+    https://ej2.syncfusion.com/react/documentation/introduction
+    https://ej2.syncfusion.com/react/documentation/grid/module
+
+    silient features:
+    Syncfusion provides a comprehensive suite of components for .NET and JavaScript, including the ej2-react-grids package for React. Here are some key features and advantages of using Syncfusion's ej2-react-grids:
+
+1. **Feature-rich**: The grid component provides a wide range of features including sorting, filtering, paging, grouping, editing, exporting and more.
+
+2. **Performance**: The grid component is designed to handle large amounts of data without any performance degradation.
+
+3. **Customizable**: The appearance and behavior of the grid can be customized to fit your application's needs.
+
+4. **Support for various data sources**: The grid can bind to local and remote data sources. It also supports different types of data sources like JSON, RESTful services, OData services, and WCF services.
+
+5. **Responsive and touch-friendly**: The grid layout will adjust based on the screen size to provide optimal viewing and interaction. It also provides a touch-friendly user interface for mobile and touch devices.
+
+6. **Accessibility**: The grid component is built with accessibility in mind, and complies with WAI-ARIA standards. It also provides a built-in keyboard navigation feature.
+
+7. **Internationalization (i18n) and Localization (l10n)**: The grid component supports displaying content in different languages and cultures.
+
+8. **Technical Support**: Syncfusion provides excellent technical support, including a dedicated support forum, direct support through email, and consulting services.
+
+Remember, while Syncfusion provides a lot of features and benefits, it's important to evaluate it in the context of your specific project requirements and constraints.
+
+Without using Syncfusion's `ej2-react-grids`, you would have to manually create a table and implement the features like paging, filtering, and grouping. Here's a simplified example using just React and some basic CSS for styling:
+
+```jsx
+import React, { useState } from 'react';
+import data from './dataSource.json';
+import './App.css';
+
+const App = () => {
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage,] = useState(6);
+
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = data.slice(indexOfFirstItem, indexOfLastItem);
+
+  const pageNumbers = [];
+  for (let i = 1; i <= Math.ceil(data.length / itemsPerPage); i++) {
+    pageNumbers.push(i);
+  }
+
+  return (
+    <div style={{ margin: '10%', marginTop: '5%' }}>
+      <table>
+        <thead>
+          <tr>
+            <th>Inv ID</th>
+            <th>Customer ID</th>
+            <th>Ship City</th>
+            <th>Ship Name</th>
+            <th>Freight</th>
+          </tr>
+        </thead>
+        <tbody>
+          {currentItems.map((item, index) => (
+            <tr key={index}>
+              <td>{item.OrderID}</td>
+              <td>{item.CustomerID}</td>
+              <td>{item.ShipCity}</td>
+              <td>{item.ShipName}</td>
+              <td>{item.Freight}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+      <div>
+        {pageNumbers.map(number => (
+          <button key={number} onClick={() => setCurrentPage(number)}>
+            {number}
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+export default App;
+```
+
+This example creates a simple table with pagination. However, it doesn't include features like filtering and grouping. Implementing those features manually would require additional code and could become quite complex. This is why libraries like Syncfusion's `ej2-react-grids` are useful: they provide these features out of the box, saving you time and effort.
+
+Yes, that's correct. Syncfusion provides a wide range of UI components that are designed to simplify complex tasks in web development. These components come with a lot of built-in functionality, which can significantly reduce the amount of code you need to write.
+
+For example, the Syncfusion Data Grid for React (ej2-react-grids) provides features like sorting, filtering, grouping, paging, editing, and exporting. Implementing these features manually can be quite complex and time-consuming. But with Syncfusion, you can add these features with just a few lines of code.
+
+So, in a nutshell, Syncfusion can help to eliminate complex tasks in web development by providing feature-rich, easy-to-use components.
+
+`i18n` is short for "internationalization". It's a process of designing a software application so that it can be adapted to various languages and regions without engineering changes. The term "i18n" is derived from the fact that there are 18 letters between the first 'i' and the last 'n' in the word "internationalization".
+
+In the context of web development, internationalization often involves the ability to translate static text in your application and format dates, numbers, and strings according to local conventions.
+
+For example, Syncfusion's ej2-react-grids supports internationalization, meaning you can display grid content in different languages. This is particularly useful for applications that need to support multiple languages.
+
+
+To make the width of a column fit to its content, you can use the `autoFit` method provided by Syncfusion's `ej2-react-grids`. However, this method needs to be called after the Grid component is rendered and the data is loaded.
+
+First, you need to create a reference to your `GridComponent`:
+
+```typescriptreact
+const grid = useRef(null);
+```
+
+Then, in your `useEffect` hook, after setting the data, you can call the `autoFit` method on all columns:
+
+```typescriptreact
+useEffect(() => {
+  axios.get('https://jsonplaceholder.typicode.com/users')
+    .then(response => {
+      const newData = response.data.map(user => {
+        const { geo, ...address } = user.address; // exclude geo
+        return { ...user, address };
+      });
+      setData(newData);
+      grid.current.autoFitColumns(); // add this line
+    })
+    .catch(error => console.error('Error fetching data: ', error));
+}, []);
+```
+
+Finally, you need to attach the `grid` ref to your `GridComponent`:
+
+```typescriptreact
+<GridComponent ref={grid} dataSource={data} ... >
+```
+
+Please note that `autoFitColumns` will make the column width just large enough to fit its content, which might not be what you want if you have a column with very long content. In that case, you might want to set a maximum width for your columns.
+
+
+

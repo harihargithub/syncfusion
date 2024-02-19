@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IndexedDB Example</title>
+</head>
+
+<body>
+    <script>
+        // Open (or create) the database
+        const request = indexedDB.open('myDatabase', 1);
+
+        // Setup the database schema
+        request.onupgradeneeded = (event) => {
+            const db = event.target.result;
+            const objectStore = db.createObjectStore('myStore', { keyPath: 'id', autoIncrement: true });
+            objectStore.createIndex('dataIndex', 'data', { unique: false });
+        };
+
+        // Handle successful database opening
+        request.onsuccess = (event) => {
+            const db = event.target.result;
+
+            // Delete data from the database
+            const transaction = db.transaction(['myStore'], 'readwrite');
+            const objectStore = transaction.objectStore('myStore');
+
+            const deleteRequest = objectStore.delete(1); // Delete the record with id 1
+
+            deleteRequest.onsuccess = () => {
+                console.log('Data deleted from IndexedDB');
+            };
+
+            deleteRequest.onerror = (event) => {
+                console.error('Error deleting data:', event.target.error);
+            };
+        };
+
+        // Handle errors
+        request.onerror = (event) => {
+            console.error('Error opening database:', event.target.error);
+        };
+    </script>
+</body>
+
+</html>
