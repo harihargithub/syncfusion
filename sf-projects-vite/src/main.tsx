@@ -4,10 +4,8 @@ import App from '../src/E-CommApp/eCommApp';
 import './index.css';
 import { registerLicense } from '@syncfusion/ej2-base';
 
-// Registering Syncfusion license key
-registerLicense(
-  'Ngo9BigBOggjHTQxAR8/V1NAaF5cWWJCf1FpRmJGdld5fUVHYVZUTXxaS00DNHVRdkdgWH1ceHVVRWVcUExwWkc=',
-);
+// .env - VITE_SYNCFUSION_LICENSE_KEY='Your SF Licence Key'
+registerLicense(import.meta.env.VITE_SYNCFUSION_LICENSE_KEY);
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
